@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Henrique Couto Machado · AI Builder</title>
+<meta name="description" content="Portfólio de Henrique Couto Machado: agentes de IA, automações e análise de dados com IA generativa, com resultados medidos contra gabarito.">
+<meta property="og:title" content="Henrique Couto Machado · AI Builder">
+<meta property="og:description" content="7 projetos de IA generativa com testes, CI e resultados medidos. O modelo interpreta, o código confere, a pessoa aprova.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://henriquecm02.github.io/">
+<meta property="og:image" content="https://henriquecm02.github.io/assets/fraude.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232f5bd3'/%3E%3Ctext x='32' y='42' font-family='Arial' font-size='28' font-weight='700' text-anchor='middle' fill='white'%3EHM%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #fbfbfd; --surface: #ffffff; --ink: #16181d; --muted: #5b6270; --line: #e4e6eb;
+    --accent: #2f5bd3; --accent-soft: #eaf0fd; --ok: #1d7a46; --ok-soft: #e7f5ec;
+    --shadow: 0 1px 2px rgba(16,24,40,.05), 0 4px 16px rgba(16,24,40,.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1115; --surface: #171a21; --ink: #e9ebf0; --muted: #a2a9b6; --line: #2a2f3a;
+      --accent: #7ea2ff; --accent-soft: #1c2640; --ok: #6fd39a; --ok-soft: #15291f;
+      --shadow: 0 1px 2px rgba(0,0,0,.4);
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+  header.top {
+    position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(8px); border-bottom: 1px solid var(--line);
+  }
+  header.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 16px; }
+  header.top strong { font-size: 15px; }
+  nav a { color: var(--muted); font-size: 14px; margin-left: 18px; }
+  nav a:hover { color: var(--ink); text-decoration: none; }
+  @media (max-width: 640px) { nav a:not(.gh) { display: none; } }
+
+  .hero { padding: 72px 0 40px; }
+  .eyebrow { color: var(--accent); font-weight: 600; font-size: 14px; letter-spacing: .4px; text-transform: uppercase; }
+  h1 { font-size: clamp(32px, 5vw, 48px); line-height: 1.1; margin: 10px 0 14px; letter-spacing: -.5px; }
+  .lead { font-size: 19px; color: var(--muted); max-width: 720px; margin: 0; }
+  .lead b { color: var(--ink); font-weight: 600; }
+  .cta { display: flex; gap: 12px; margin-top: 26px; flex-wrap: wrap; }
+  .btn { display: inline-block; padding: 10px 18px; border-radius: 10px; font-weight: 600; font-size: 15px;
+         border: 1px solid var(--line); color: var(--ink); background: var(--surface); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn:hover { text-decoration: none; filter: brightness(1.05); }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 40px; }
+  .stat { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
+  .stat .n { font-size: 26px; font-weight: 700; letter-spacing: -.3px; }
+  .stat .l { color: var(--muted); font-size: 14px; line-height: 1.4; }
+  @media (max-width: 760px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+
+  section { padding: 44px 0; }
+  h2 { font-size: 26px; margin: 0 0 6px; letter-spacing: -.3px; }
+  .sub { color: var(--muted); margin: 0 0 24px; }
+
+  .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .principle { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
+  .principle h3 { margin: 0 0 6px; font-size: 17px; }
+  .principle p { margin: 0; color: var(--muted); font-size: 15px; }
+  .principle .k { display: inline-block; font-size: 12px; font-weight: 700; color: var(--accent);
+                  background: var(--accent-soft); border-radius: 6px; padding: 2px 8px; margin-bottom: 10px; }
+  @media (max-width: 760px) { .principles { grid-template-columns: 1fr; } }
+
+  .featured { display: grid; grid-template-columns: 1.1fr 1fr; gap: 0; background: var(--surface);
+              border: 1px solid var(--line); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow); }
+  .featured img { width: 100%; height: 100%; object-fit: cover; object-position: top left; display: block;
+                  border-right: 1px solid var(--line); }
+  .featured .body { padding: 26px; }
+  .featured h3 { margin: 6px 0 8px; font-size: 22px; }
+  .tag { display: inline-block; font-size: 12px; font-weight: 600; color: var(--ok); background: var(--ok-soft);
+         padding: 3px 9px; border-radius: 999px; }
+  .featured ul { padding-left: 18px; margin: 12px 0 16px; }
+  .featured li { margin-bottom: 6px; }
+  @media (max-width: 860px) {
+    .featured { grid-template-columns: 1fr; }
+    .featured img { border-right: 0; border-bottom: 1px solid var(--line); max-height: 300px; }
+  }
+
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 18px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+  .card { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line);
+          border-radius: 16px; overflow: hidden; color: var(--ink); transition: transform .15s, box-shadow .15s; }
+  .card:hover { transform: translateY(-2px); box-shadow: var(--shadow); text-decoration: none; }
+  .card img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top left; display: block;
+              border-bottom: 1px solid var(--line); }
+  .card .body { padding: 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .card h3 { margin: 0; font-size: 17px; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+  .metric { margin-top: auto; font-size: 14px; font-weight: 600; color: var(--ok); }
+  .stack { font-size: 13px; color: var(--muted); }
+
+  .timeline { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px; }
+  .role { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .role h3 { margin: 0; font-size: 18px; }
+  .role span { color: var(--muted); font-size: 14px; }
+  .timeline ul { margin: 12px 0 0; padding-left: 18px; }
+  .timeline li { margin-bottom: 6px; }
+
+  .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 860px) { .cols { grid-template-columns: 1fr; } }
+  .box { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
+  .box h3 { margin: 0 0 10px; font-size: 16px; }
+  .box ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: 15px; }
+  .box li { margin-bottom: 5px; }
+  .box li b { color: var(--ink); font-weight: 600; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { font-size: 13px; border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; color: var(--ink); }
+
+  footer { border-top: 1px solid var(--line); padding: 26px 0 40px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <strong>Henrique Couto Machado</strong>
+    <nav>
+      <a href="#projetos">Projetos</a>
+      <a href="#experiencia">Experiência</a>
+      <a href="#formacao">Formação</a>
+      <a class="gh" href="https://github.com/henriquecm02">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div class="eyebrow">AI Builder · Agentes de IA, automação e dados</div>
+    <h1>Construo com IA generativa soluções que resolvem problemas de negócio de ponta a ponta.</h1>
+    <p class="lead">Estudante de Redes de Computadores, vindo de cibersegurança. No trabalho, já automatizei rotinas com agentes e MCP e entreguei análises usadas pela liderança. Nos projetos abaixo, <b>o modelo interpreta, o código confere e a pessoa aprova</b>, e cada resultado é medido contra um gabarito, inclusive o que falhou.</p>
+    <div class="cta">
+      <a class="btn primary" href="#projetos">Ver projetos</a>
+      <a class="btn" href="https://github.com/henriquecm02">github.com/henriquecm02</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="n">7</div><div class="l">projetos públicos com Gemini, testes e CI</div></div>
+      <div class="stat"><div class="n">≤ 2 dias</div><div class="l">para construir cada projeto do zero</div></div>
+      <div class="stat"><div class="n">~15 h/mês</div><div class="l">economizadas para um time de 8 pessoas com agentes e MCP</div></div>
+      <div class="stat"><div class="n">TB de logs</div><div class="l">em relatórios automatizados usados pela liderança</div></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <h2>Como eu construo</h2>
+      <p class="sub">Três regras que aparecem em todos os projetos.</p>
+      <div class="principles">
+        <div class="principle"><span class="k">1</span><h3>O modelo interpreta</h3><p>O LLM lê texto livre, classifica e cita a evidência, sempre com saída estruturada por JSON Schema.</p></div>
+        <div class="principle"><span class="k">2</span><h3>O código confere</h3><p>Regras determinísticas checam citações, números e sinais objetivos. Quando o modelo e o código discordam, uma pessoa decide.</p></div>
+        <div class="principle"><span class="k">3</span><h3>A pessoa aprova</h3><p>Ações sensíveis, como dinheiro, acesso ou acusações, nunca são automáticas. O modelo propõe e o humano aprova.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projetos">
+    <div class="wrap">
+      <h2>Projetos</h2>
+      <p class="sub">Dados sintéticos ou públicos, resultados reproduzíveis e falhas documentadas no README de cada um.</p>
+
+      <article class="featured">
+        <img src="assets/fraude.jpg" alt="Painel da fila de revisão de denúncias de fraude, com casos priorizados e motivos de revisão" width="960" height="600">
+        <div class="body">
+          <span class="tag">Mais recente</span>
+          <h3>Triagem de denúncias de fraude em delivery</h3>
+          <p>Agente que lê a denúncia, o chat do pedido e o GPS da entrega, identifica o golpe e monta a fila de trabalho do analista. Os golpes cobertos são cobrança extra na maquininha, código de entrega pedido antes da chegada, falso atendente, link malicioso e contestação falsa.</p>
+          <ul>
+            <li><b>48 de 48</b> casos corretos e <b>17 de 17</b> num conjunto feito para quebrar o sistema, contra 35 de 48 só com regras.</li>
+            <li>Toda citação do modelo é conferida no texto. Injeções de prompt sempre vão para revisão humana.</li>
+            <li>Estorno e suspensão só acontecem com aprovação, e nenhum cliente é acusado por mensagem automática.</li>
+          </ul>
+          <div class="stack">Gemini · JSON Schema · Python · Streamlit · 68 testes</div>
+          <p style="margin-top:14px"><a class="btn" href="https://github.com/henriquecm02/ai-fraud-triage-agent">Ver código e resultados</a></p>
+        </div>
+      </article>
+
+      <div class="grid">
+        <a class="card" href="https://github.com/henriquecm02/ai-business-operations-agent">
+          <img src="assets/operacoes.jpg" alt="Painel do agente de operações com totais, gráficos por fornecedor e alertas" width="960" height="600" loading="lazy">
+          <div class="body">
+            <h3>Agente de operações de negócio</h3>
+            <p>Recebe um pedido em português e transforma uma pasta de notas, faturas e contratos em planilha, gráficos e relatório executivo.</p>
+            <div class="stack">Gemini · function calling · MCP</div>
+            <div class="metric">17 documentos em 28 s, com 98,4% de acurácia</div>
+          </div>
+        </a>
+        <a class="card" href="https://github.com/henriquecm02/ai-knowledge-assistant">
+          <img src="assets/conhecimento.jpg" alt="Assistente de conhecimento respondendo com trechos e fontes dos documentos" width="960" height="600" loading="lazy">
+          <div class="body">
+            <h3>Assistente de conhecimento (RAG)</h3>
+            <p>Responde sobre políticas internas citando documento, seção e página, e diz "não encontrei" quando falta fonte.</p>
+            <div class="stack">Gemini · embeddings · busca híbrida</div>
+            <div class="metric">Fonte certa em 38 de 38 perguntas</div>
+          </div>
+        </a>
+        <a class="card" href="https://github.com/henriquecm02/intelligent-data-dashboard">
+          <img src="assets/indicadores.jpg" alt="Dashboard de indicadores econômicos com gráfico do dólar e alertas" width="960" height="600" loading="lazy">
+          <div class="body">
+            <h3>Dashboard de indicadores econômicos</h3>
+            <p>Coleta automática do Banco Central, alertas e resumo semanal por IA, com todo número do texto conferido contra os dados.</p>
+            <div class="stack">Python · API do Banco Central · Streamlit</div>
+            <div class="metric">Todo número do resumo conferido contra os dados</div>
+          </div>
+        </a>
+        <a class="card" href="https://github.com/henriquecm02/ai-workflow-automation">
+          <div class="body">
+            <h3>Automação de workflows com n8n + IA</h3>
+            <p>Cinco workflows gerados por código: triagem de e-mails, documentos, atas, pesquisa com fontes e boletim de indicadores.</p>
+            <div class="stack">n8n · Gemini · webhooks</div>
+            <div class="metric">11 de 11 casos no teste de ponta a ponta</div>
+          </div>
+        </a>
+        <a class="card" href="https://github.com/henriquecm02/marketplace-business-intelligence">
+          <div class="body">
+            <h3>BI de marketplace com analista de IA</h3>
+            <p>Responde perguntas de negócio com ferramentas de análise e SQL somente leitura, avaliado contra padrões plantados nos dados.</p>
+            <div class="stack">Gemini · SQL · Streamlit</div>
+            <div class="metric">5 corretas e 1 parcial em 6, com a falha documentada</div>
+          </div>
+        </a>
+        <a class="card" href="https://github.com/henriquecm02/ai-productivity-copilot">
+          <div class="body">
+            <h3>Copiloto de produtividade (servidor MCP)</h3>
+            <p>Tarefas, notas, agenda e extração de tarefas de e-mails. Os testes acharam uma injeção de prompt que o modelo obedecia, corrigida no prompt e em código.</p>
+            <div class="stack">MCP · Gemini · Python</div>
+            <div class="metric">Falha encontrada, corrigida e coberta por teste</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="experiencia">
+    <div class="wrap">
+      <h2>Experiência</h2>
+      <p class="sub">IA aplicada no dia a dia de uma área de segurança.</p>
+      <div class="timeline">
+        <div class="role"><h3>Security Assistant / IA &amp; Automation Builder · empresa de tecnologia</h3><span>nov/2025 – atual</span></div>
+        <ul>
+          <li>Automatizou com agentes de IA e MCP a rotina de OKRs de um time de 8 pessoas, economizando <b>cerca de 15 horas por mês</b>.</li>
+          <li>Construiu um pipeline automatizado de análise de logs de tráfego (<b>terabytes</b> em AWS S3 e Athena), usado pela diretoria e pelo CISO em decisões sobre Shadow AI.</li>
+          <li>Desenhou a arquitetura de squads híbridas, com pessoas e agentes de IA, para resolver chamados de suporte em ferramentas de segurança.</li>
+          <li>Padronizou a imagem corporativa Ubuntu de todo o parque com arquitetura agêntica: agentes de personalização, subagentes de documentação e deploy via MDM.</li>
+          <li>Por iniciativa própria, investigou o uso indevido de instaladores de pacotes e do WSL e levou as análises à liderança.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="formacao">
+    <div class="wrap">
+      <h2>Habilidades e formação</h2>
+      <p class="sub">O que uso para construir e de onde vem a base.</p>
+      <div class="cols">
+        <div class="box">
+          <h3>Habilidades</h3>
+          <div class="chips">
+            <span class="chip">Agentes de IA</span><span class="chip">Gemini</span><span class="chip">Claude</span>
+            <span class="chip">MCP</span><span class="chip">Function calling</span><span class="chip">RAG</span>
+            <span class="chip">Prompt engineering</span><span class="chip">JSON Schema</span><span class="chip">n8n</span>
+            <span class="chip">Python</span><span class="chip">SQL</span><span class="chip">pandas</span><span class="chip">Streamlit</span>
+            <span class="chip">Claude Code</span><span class="chip">Cursor</span><span class="chip">AWS</span><span class="chip">Azure</span>
+            <span class="chip">Docker</span><span class="chip">Linux</span><span class="chip">GitHub Actions</span>
+          </div>
+        </div>
+        <div class="box">
+          <h3>Formação</h3>
+          <ul>
+            <li><b>Tecnólogo em Redes de Computadores</b>, Uninter (conclusão em dez/2027)</li>
+            <li><b>Engenharia Elétrica</b>, UFSCar (cursado, 2021–2023)</li>
+            <li><b>Técnico em Mecatrônica</b>, IFSP Avaré (2018–2020)</li>
+            <li>Um dos líderes da equipe competitiva de robótica do curso técnico</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Certificações e cursos</h3>
+          <ul>
+            <li><b>Claude Certified Architect – Foundations</b> (Anthropic)</li>
+            <li><b>AWS Certified Cloud Practitioner</b></li>
+            <li>AWS Certified AI Practitioner (em andamento)</li>
+            <li>EmpreendAIoT: residência em IA, IoT, nuvem e empreendedorismo</li>
+            <li>Análise de Dados (Google), Machine Learning na Azure (DP-100)</li>
+            <li>Inglês avançado (C1) · Espanhol avançado</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Henrique Couto Machado · Paranapanema, SP · disponível para trabalho remoto</span>
+    <a href="https://github.com/henriquecm02">github.com/henriquecm02</a>
+  </div>
+</footer>
+
+</body>
+</html>
